@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PetShop</title>
+
+    
+    <style>
+
+        h2 {
+            text-align: center;
+        }
+
+        body {
+            font-family: Arial;
+            padding: 20px;
+            min-height: 100vh;
+            background: linear-gradient(-45deg, #fff170, #f971d2, #a680ff, #ff00b7);
+            background-size: 400% 400%;
+            animation: linearGradient 10s ease infinite;
+        }
+
+        @keyframes linearGradient {
+            0% {
+                background-position: 0% 50%;
+            }
+            50% {
+                background-position: 100% 50%;
+            }
+            100% {
+                background-position: 0% 50%;
+            }
+        }
+
+        input, button {
+            padding: 8px;
+            margin: 5px;
+            border-radius: 10px;
+            border: 3px dashed palevioletred;
+        }
+        
+        .box {
+            border: 1px solid rosybrown ;
+            padding: 10px;
+            width: 300px;
+            display: inline-block;
+        }
+
+    </style>
+</head>
+
+<body>
+    <h2
+    style="background-color: rgb(253, 248, 147); color: rgb(190, 140, 234);">
+        PetShop - Fila de Atendimento
+    </h2>
+
+    <input id="nome">
+
+    <button onclick="entrar()">Entrar na fila de espera</button>
+    <button onclick="atender()">Dar Banho</button>
+
+    <h3> 🐕‍🦺 Aguardando banho</h3>
+    <ul id="fila"></ul>
+
+    <h3> 🐶 Pets limpos</h3>
+    <ul id="prontos"></ul>
+
+<script>
+
+    let fila = [];
+    let prontos = [];
+
+    function entrar() {
+        let nome = document.getElementById("nome").value;
+
+        if (nome == "") {
+            alert("Digite o nome do pet");
+            return;
+        }
+
+        fila.push(nome);
+        atualizaTela();
+        document.getElementById("nome").value = "";
+        document.getElementById("nome").focus();
+    }
+
+    function atender() {
+        if (fila.length === 0) {
+            alert("Fila vazia");
+            return;
+        }
+        
+        let pet = fila.shift();
+        prontos.push(pet);
+
+        atualizaTela();
+    }
+
+    function atualizaTela () {
+        let ulFila = document.getElementById("fila");
+        let ulProntos = document.getElementById("prontos");
+
+        ulFila.innerHTML = "";
+            ulProntos.innerHTML = "";
+
+            fila.forEach(p => {
+                let li = document.createElement("li");
+                li.innerText = p;
+                ulFila.appendChild(li);
+            });
+
+            prontos.forEach(p => {
+                let li = document.createElement("li");
+                li.innerText = p;
+                ulProntos.appendChild(li);
+            });
+    }
+
+</script>
+
+</body>
+</html>
